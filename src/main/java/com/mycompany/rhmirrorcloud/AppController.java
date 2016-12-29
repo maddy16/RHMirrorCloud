@@ -204,7 +204,10 @@ public class AppController {
                 }
                 String path =fileBucket.getFilePath();
                 String newPath =path.substring(0,1)+path.substring(2, path.length());
+                System.out.println("Path from APP: "+path);
+                System.out.println("New File Path before method call: "+newPath);
                 file = new File(DataController.LOCATION+user.getUname()+File.separator+pc.getPcName()+File.separator+newPath);
+                System.out.println("New Complete Path before method call: "+DataController.LOCATION+user.getUname()+File.separator+pc.getPcName()+File.separator+newPath);
                 DataController.createParentDirs(file.getParentFile().getAbsolutePath());
                 // Now do something with file...
                 File toUpload = new File( DataController.LOCATION +user.getUname()+File.separator+pc.getPcName()+File.separator+newPath);
