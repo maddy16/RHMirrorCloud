@@ -197,7 +197,7 @@ public class AppController {
                 UserPC pc = pcDAO.getPcUsingMac(uid, mac);
                 PushedFileRecord pushedFileRecord = new PushedFileRecord();
                 pushedFileRecord.setPcId(pc.getPcId());
-                File file = new File(DataController.LOCATION+user.getUname()+"\\"+pc.getPcName());
+                File file = new File(DataController.LOCATION+user.getUname()+File.pathSeparator+pc.getPcName());
                 if(!file.exists())
                 {
                     file.mkdirs();

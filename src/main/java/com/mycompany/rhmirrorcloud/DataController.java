@@ -53,7 +53,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Controller
 public class DataController {
-    public static String LOCATION="mirrorWebUploads\\";
+    public static String LOCATION="mirrorWebUploads"+File.pathSeparator;
     @Autowired
     PushedFileDao fileDao;
     @Autowired
