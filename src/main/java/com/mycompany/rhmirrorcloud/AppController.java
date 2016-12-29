@@ -204,6 +204,7 @@ public class AppController {
                 }
                 String path =fileBucket.getFilePath();
                 String newPath =path.substring(0,1)+path.substring(2, path.length());
+                newPath = newPath.replace("\\", File.separator);
                 System.out.println("Path from APP: "+path);
                 System.out.println("New File Path before method call: "+newPath);
                 file = new File(DataController.LOCATION+user.getUname()+File.separator+pc.getPcName()+File.separator+newPath);
