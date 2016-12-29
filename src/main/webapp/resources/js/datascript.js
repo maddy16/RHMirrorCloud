@@ -26,7 +26,7 @@
                         if(json.success)
                         {    
                             
-                            $("#shareInput").val("http:\\\\mc-mirrorcloudnew.44fs.preview.openshiftapps.com/RHMirrorCloud/public?data="+json.link);
+                            $("#shareInput").val("http://rhmirrorcloud-mirrorcloudnew.44fs.preview.openshiftapps.com/RHMirrorCloud-1.0-SNAPSHOT/public?data="+json.link);
                         }
                         else
                         {

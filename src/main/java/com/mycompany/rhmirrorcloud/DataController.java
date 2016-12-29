@@ -1543,7 +1543,7 @@ class EmailThread extends Thread{
             message.setText("Hello "+to.getFullName()+", You have some data shared with your Mirror Cloud Account "
                     + "by "+owner.getFullName()+"("+owner.getEmail()+").\n\n "
                + "You can view it anytime by visiting the link given below.\n\n"
-                    + "http:\\\\mc-mirrorcloudnew.44fs.preview.openshiftapps.com/RHMirrorCloud/public?data="+link+"\n\n\n"
+                    + "http://rhmirrorcloud-mirrorcloudnew.44fs.preview.openshiftapps.com/RHMirrorCloud-1.0-SNAPSHOT/public?data="+link+"\n\n\n"
                     + "This is an auto generated Email and hence cannot be replied. \nThanks.\n\nMirror Cloud.");
 
             // Send message
