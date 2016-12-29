@@ -69,7 +69,7 @@ public class AppController {
                 PushedFileRecord dirtyFile = pushedFileDAO.getPushedFileRecord(fileId, pcId);
                 if(dirtyFile!=null)
                 {
-                    String path = DataController.LOCATION+"\\"+user.getUname()+"\\"+pc.getPcName()+"\\"+dirtyFile.getFilePath();
+                    String path = DataController.LOCATION+File.separator+user.getUname()+File.separator+pc.getPcName()+File.separator+dirtyFile.getFilePath();
                     File downloadFile = new File(path);
                     DataController.sendDownload(downloadFile, path, request, response);
                 }
@@ -111,7 +111,7 @@ public class AppController {
                 if(pc!=null)
                 {
                     int pcId = pc.getPcId();
-                    File file = new File(DataController.LOCATION+user.getUname()+"\\"+pc.getPcName()+"\\"+filePath);
+                    File file = new File(DataController.LOCATION+user.getUname()+File.separator+pc.getPcName()+File.separator+filePath);
                     boolean fileExists = file.exists();
                     boolean recordExists = false;
                     PushedFileRecord fileRecord = pushedFileDAO.getPushedFileRecord(filePath, pcId);
@@ -204,12 +204,12 @@ public class AppController {
                 }
                 String path =fileBucket.getFilePath();
                 String newPath =path.substring(0,1)+path.substring(2, path.length());
-                file = new File(DataController.LOCATION+user.getUname()+"\\"+pc.getPcName()+"\\"+newPath);
+                file = new File(DataController.LOCATION+user.getUname()+File.separator+pc.getPcName()+File.separator+newPath);
                 DataController.createParentDirs(file.getParentFile().getAbsolutePath());
                 // Now do something with file...
-                File toUpload = new File( DataController.LOCATION +user.getUname()+"\\"+pc.getPcName()+"\\"+newPath);
+                File toUpload = new File( DataController.LOCATION +user.getUname()+File.separator+pc.getPcName()+File.separator+newPath);
                 FileCopyUtils.copy(fileBucket.getFile().getBytes(), toUpload);
-                toUpload = new File( DataController.LOCATION +user.getUname()+"\\"+pc.getPcName()+"\\"+newPath);
+                toUpload = new File( DataController.LOCATION +user.getUname()+File.separator+pc.getPcName()+File.separator+newPath);
                 String fileName = multipartFile.getOriginalFilename();
                 pushedFileRecord.setFileName(fileName);
                 pushedFileRecord.setFilePath(newPath);

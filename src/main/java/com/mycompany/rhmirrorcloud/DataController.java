@@ -538,19 +538,19 @@ public class DataController {
                 else
                 {
                     
-                    File file = new File(LOCATION+user.getUname()+"\\"+pc.getPcName()+"\\"+path);
+                    File file = new File(LOCATION+user.getUname()+File.separator+pc.getPcName()+File.separator+path);
                     String parentPath = file.getParent();
                     String extension = file.getName().substring(file.getName().lastIndexOf("."));
                     String newFileName = newName+extension;
                     String actualParent = path.substring(0,path.lastIndexOf("\\"));
                     if(file.exists()){
-                        File newFile = new File(parentPath+"\\"+newFileName);
+                        File newFile = new File(parentPath+File.separator+newFileName);
                         file.renameTo(newFile);
                         setFileRecordToDeleted(pushedFileRecord, pcId);
                         pushedFileRecord = new PushedFileRecord();
                         pushedFileRecord.setPcId(pc.getPcId());
                         pushedFileRecord.setFileName(newFileName);
-                        pushedFileRecord.setFilePath(actualParent+"\\"+newFileName);
+                        pushedFileRecord.setFilePath(actualParent+File.separator+newFileName);
                         pushedFileRecord.setDateModified(newFile.lastModified());
                         PushedFileRecord fetchedRecord = fileDao.getPushedFileRecord(pushedFileRecord.getFilePath(), pc.getPcId());
                         pushedFileRecord.setIsDirty(true);
@@ -739,7 +739,7 @@ public class DataController {
                 responseJson.accumulate("pcFound", true);
                 try
                 {
-                    File f = new File(LOCATION+user.getUname()+"\\"+pc.getPcName()+"\\"+path);
+                    File f = new File(LOCATION+user.getUname()+File.separator+pc.getPcName()+File.separator+path);
                     if(f.exists()) {
                         deleteAllFiles(f, pcId);
                         responseJson.accumulate("success", true);
@@ -793,7 +793,7 @@ public class DataController {
                 responseJson.accumulate("loggedIn", true);
                 try
                 {
-                    File f = new File(LOCATION+user.getUname()+"\\"+pc.getPcName()+"\\"+path);
+                    File f = new File(LOCATION+user.getUname()+File.separator+pc.getPcName()+File.separator+path);
                     if(f.exists()) {
                         deleteAllSharedFiles(f, pcId);
                         SharedLink sharedLink = sharedLinkDAO.getLink(link);
@@ -876,11 +876,11 @@ public class DataController {
         }
         else
         {
-            fullPath = LOCATION+"\\"+owner.getUname()+"\\"+pc.getPcName()+"\\"+path;
+            fullPath = LOCATION+File.separator+owner.getUname()+File.separator+pc.getPcName()+File.separator+path;
             SharedLink sharedLink = sharedLinkDAO.getLink(link);
             File downloadFile = new File(fullPath);
             String parentPath = path.substring(0, path.lastIndexOf("\\"));
-            String copyPath = LOCATION+"\\"+owner.getUname()+"\\"+pc.getPcName()+"\\"+parentPath+"\\(MirrorCloud)"+downloadFile.getName();
+            String copyPath = LOCATION+File.separator+owner.getUname()+File.separator+pc.getPcName()+File.separator+parentPath+"\\(MirrorCloud)"+downloadFile.getName();
             if(sharedLink.getSharedTo().equals("All")){
                 File newFile = new File(copyPath);
                 boolean copied = copyFile(downloadFile, newFile);
@@ -935,7 +935,7 @@ public class DataController {
             }
             else
             {
-                fullPath = LOCATION+"\\"+user.getUname()+"\\"+pc.getPcName()+"\\"+path;
+                fullPath = LOCATION+File.separator+user.getUname()+File.separator+pc.getPcName()+File.separator+path;
             }
             File downloadFile = new File(fullPath);
             sendDownload(downloadFile, fullPath, request, response);
@@ -953,7 +953,7 @@ public class DataController {
             UserPC pc = pcDao.getPcUsingPcId(pcId);
             if(pc!=null)
             {
-                String dir = LOCATION+owner.getUname()+"\\"+pc.getPcName();
+                String dir = LOCATION+owner.getUname()+File.separator+pc.getPcName();
                 File directory = new File(dir);
                 deleteAllFilesInPc(directory);
                 pcDao.delete(pcId);
@@ -980,7 +980,7 @@ public class DataController {
                 parentDir = aFile.substring(0,aFile.lastIndexOf("\\"));
             }
             UserPC pc = pcDao.getPcUsingPcId(pcId);
-            String SOURCE_FOLDER = LOCATION+owner.getUname()+"\\"+pc.getPcName()+"\\";
+            String SOURCE_FOLDER = LOCATION+owner.getUname()+File.separator+pc.getPcName()+"\\";
             System.out.println("SOURCE: "+SOURCE_FOLDER);
 //            File file = new File(SOURCE_FOLDER);
             List<String> fileList= new ArrayList<>();
@@ -1044,7 +1044,7 @@ public class DataController {
         else
         {
             UserPC pc = pcDao.getPcUsingPcId(pcId);
-            String SOURCE_FOLDER = LOCATION+owner.getUname()+"\\"+pc.getPcName()+"\\"+path;
+            String SOURCE_FOLDER = LOCATION+owner.getUname()+File.separator+pc.getPcName()+File.separator+path;
             System.out.println("SOURCE: "+SOURCE_FOLDER);
             File file = new File(SOURCE_FOLDER);
             List<String> fileList= new ArrayList<>();
@@ -1097,7 +1097,7 @@ public class DataController {
                 }
             }
             
-            String SOURCE_FOLDER = LOCATION+owner.getUname()+"\\"+pc.getPcName()+"\\"+path;
+            String SOURCE_FOLDER = LOCATION+owner.getUname()+File.separator+pc.getPcName()+File.separator+path;
             System.out.println("SOURCE(Shared): "+SOURCE_FOLDER);
             File file = new File(SOURCE_FOLDER);
             List<String> fileList= new ArrayList<String>();
@@ -1177,17 +1177,17 @@ public class DataController {
             String uname = user.getUname();
             PushedFileRecord pushedFileRecord = new PushedFileRecord();
             pushedFileRecord.setPcId(pc.getPcId());
-            File file = new File(DataController.LOCATION+uname+"\\"+pc.getPcName());
+            File file = new File(DataController.LOCATION+uname+File.separator+pc.getPcName());
             if(!file.exists())
             {
                 file.mkdirs();
             }
             String path =fileBucket.getFilePath();
             path = decode(path);
-            file = new File(DataController.LOCATION+uname+"\\"+pc.getPcName()+"\\"+path);
+            file = new File(DataController.LOCATION+uname+File.separator+pc.getPcName()+File.separator+path);
             createParentDirs(file.getParentFile().getAbsolutePath());
             // Now do something with file...
-            File toUpload = new File( DataController.LOCATION +uname+"\\"+pc.getPcName()+"\\"+ path);
+            File toUpload = new File( DataController.LOCATION +uname+File.separator+pc.getPcName()+File.separator+ path);
             FileCopyUtils.copy(fileBucket.getFile().getBytes(), toUpload);
             encrypt(toUpload, userDao.getUser(pc.getUserId()).getUname(), userDao.getUser(pc.getUserId()).getPass());
             String fileName = multipartFile.getOriginalFilename();
