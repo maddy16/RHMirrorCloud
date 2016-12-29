@@ -1230,10 +1230,11 @@ public class DataController {
         paths.add(f.getName());
         f = f.getParentFile();
     } while (f.getParentFile() != null);
+        System.out.println("File Path: "+f.getPath());
         String newPath = f.getPath().substring(0,2);
         for(int i=paths.size()-1;i>=0;i--)
         {
-            newPath+="\\"+paths.get(i);
+            newPath+=File.separator+paths.get(i);
             if(!dirExists(newPath))
                 createDir(newPath);
         }
