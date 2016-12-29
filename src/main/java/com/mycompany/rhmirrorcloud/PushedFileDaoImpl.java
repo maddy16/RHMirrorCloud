@@ -78,7 +78,7 @@ public class PushedFileDaoImpl implements PushedFileDao{
         List <String> pushedFiles = null;
         try{
         String SQL = "SELECT DISTINCT substring_index(substring_index(`file_path`,?,?), ? ,-1) FROM uploaded_files where `file_path` LIKE ? AND `pc_id`=? AND `file_path` != 'drive' AND ROUND ((LENGTH(`file_path`)- LENGTH( REPLACE ( `file_path`, ?, ''))) / LENGTH(?))>=? AND IFNULL(`dirty_reason`,'null')!='file deleted'";
-        pushedFiles = jdbcTemplate.query(SQL,new Object[]{"\\",new Integer(num), "\\",suffix,pcId, "\\", "\\",new Integer(num-1)},new RowMapper<String>() {
+        pushedFiles = jdbcTemplate.query(SQL,new Object[]{"/",new Integer(num), "/",suffix,pcId, "/", "/",new Integer(num-1)},new RowMapper<String>() {
 
             @Override
             public String mapRow(ResultSet rs, int i) throws SQLException {
@@ -131,7 +131,7 @@ public class PushedFileDaoImpl implements PushedFileDao{
 
     @Override
     public List<PushedFileRecord> getFilesInDirectory(int pcId, String path) {
-        path = path.replace("\\", "_");
+        path = path.replace("/", "_");
         String SQL = "SELECT * FROM `uploaded_files` WHERE `file_path` LIKE ? AND `pc_id` = ?";
         List<PushedFileRecord> pushedFiles = null;
         try{

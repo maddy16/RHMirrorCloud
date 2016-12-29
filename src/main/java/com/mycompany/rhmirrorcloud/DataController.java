@@ -454,6 +454,7 @@ public class DataController {
         }
         else
         {
+            System.out.println("Path Browsed: "+path);
             List<String> immediateChilds = fileDao.getImmediateChilds(path+"%",num,pcId);
             HashMap<String,PushedFileRecord> map = new HashMap<>();
             int fileNum =1;
