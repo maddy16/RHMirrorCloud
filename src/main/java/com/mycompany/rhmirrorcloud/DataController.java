@@ -1225,13 +1225,15 @@ public class DataController {
     public static void createParentDirs(String path)
     {
         File f = new File(path);
+        System.out.println("File Path: "+f.getPath());
         ArrayList<String> paths = new ArrayList<>();
         do {
-        paths.add(f.getName());
-        f = f.getParentFile();
-    } while (f.getParentFile() != null);
-        System.out.println("File Path: "+f.getPath());
-        String newPath = f.getPath().substring(0,2);
+            paths.add(f.getName());
+            f = f.getParentFile();
+        } 
+        while (f.getParentFile() != null);
+        
+        String newPath = "";
         for(int i=paths.size()-1;i>=0;i--)
         {
             newPath+=File.separator+paths.get(i);
