@@ -100,6 +100,7 @@ public class AppController {
         JSONObject jSONObject = JSONObject.fromObject(json);
         JSONObject responseJson = new JSONObject();
         String filePath = jSONObject.getString("file_path");
+        filePath = filePath.replace("\\", File.separator);
         int userId = jSONObject.getInt("user_id");
         String pcName = jSONObject.getString("pc_name");
         User user = userDAO.getUser(userId);

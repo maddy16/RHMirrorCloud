@@ -186,10 +186,8 @@
             }
             $(document).ready(function() {
                 $(".link").contextPopup({
-                    title: 'My Popup Menu',
                     items: [
-                        {label:'Open',     icon:'icons/shopping-basket.png',             action:function() { alert(); alert('Ab jo mrzi kr idr '); } },
-                        {label:'Another Thing', icon:'icons/receipt-text.png',                action:function() { alert('clicked 2'); } }
+                        {label:'Open',     action:function(abc) { $(abc.currentTarget).trigger("dblclick"); } },
                          ]
                 });
                 $('#mythingy').contextPopup({

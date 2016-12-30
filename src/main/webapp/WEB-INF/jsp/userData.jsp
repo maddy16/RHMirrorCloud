@@ -128,7 +128,7 @@
         <div class="navbar-fixed" style="z-index:1001;">
             <nav>
                 <div class="nav-wrapper  white">
-                    <a href="/RHMirrorCloud/login"><div class="brand-logo"><img src="resources/img/logo2.png" class="responsive-img" alt="Mirror Cloud Logo"/></div></a>
+                    <a href="/RHMirrorCloud-1.0-SNAPSHOT/login"><div class="brand-logo"><img src="resources/img/logo2.png" class="responsive-img" alt="Mirror Cloud Logo"/></div></a>
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     
                     <ul class="right hide-on-med-and-down">
@@ -242,7 +242,7 @@
                             </c:if> black-text" >
                         <img data-tooltip="MAC Address : ${item.detail.macAddress} Operating System: ${item.detail.osName}" data-delay="5" data-position="top"  src="resources/img/icon.jpg" alt="" class="circle tooltipped"/>
                         <span class="title" style="font-weight: bold">${item.pcName}</span>
-                        <span class="secondary-content  pcStatus" id="pcStatus_${item.pcId}"><img src="resources/img/app-off.png" /></span>
+                        <span class="secondary-content  pcStatus hide" id="pcStatus_${item.pcId}"><img src="resources/img/app-off.png" /></span>
                       </li>
                       </a>
                     <!--<a href="viewOwnData?pcId=${item.pcId}" class="btn waves-effect waves-light">${item.pcName}</a>-->

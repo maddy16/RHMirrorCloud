@@ -116,7 +116,7 @@
         <div class="navbar-fixed"  style="z-index:1001;">
             <nav>
                 <div class="nav-wrapper  white">
-                    <a href="#!" class="brand-logo"><img src="resources/img/logo1.png"  width="80%" alt="Logo"/></a>
+                    <a href="/RHMirrorCloud-1.0-SNAPSHOT/login"><div class="brand-logo"><img src="resources/img/logo2.png" class="responsive-img" alt="Mirror Cloud Logo"/></div></a>
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
                     <li><span class="" style="color:black;">Welcome <span style="font-weight:bold;">${uname}</span></span></li>
