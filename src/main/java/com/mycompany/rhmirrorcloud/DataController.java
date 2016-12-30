@@ -608,7 +608,7 @@ public class DataController {
                     for(i=0;i<path.length();i++){
                         if(path.charAt(i)==File.separatorChar)
                             count++;
-                        if(count==4)
+                        if(count==3)
                             break;
                     }
                     path = path.substring(i+1);
@@ -625,12 +625,13 @@ public class DataController {
             }
         }
         String path = f.getAbsolutePath().replace(":", "");
+        System.out.println("File Path in System: "+path);
         int count=0;
         int i=0;
         for(i=0;i<path.length();i++){
             if(path.charAt(i)==File.separatorChar)
                 count++;
-            if(count==4)
+            if(count==3)
                 break;
         }
         path = path.substring(i+1);
@@ -665,7 +666,7 @@ public class DataController {
                     for(i=0;i<path.length();i++){
                         if(path.charAt(i)==File.separatorChar)
                             count++;
-                        if(count==4)
+                        if(count==3)
                             break;
                     }
                     path = path.substring(i+1);
@@ -687,7 +688,7 @@ public class DataController {
         for(i=0;i<path.length();i++){
             if(path.charAt(i)==File.separatorChar)
                 count++;
-            if(count==4)
+            if(count==3)
                 break;
         }
         path = path.substring(i+1);
@@ -942,6 +943,7 @@ public class DataController {
                 fullPath = LOCATION+user.getUname()+File.separator+pc.getPcName()+File.separator+path;
             }
             File downloadFile = new File(fullPath);
+            System.out.println("Download Request for file: "+fullPath);
             sendDownload(downloadFile, fullPath, request, response);
             if(path.contains(".zip"))
             {
