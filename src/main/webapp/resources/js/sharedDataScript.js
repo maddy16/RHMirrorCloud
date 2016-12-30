@@ -14,7 +14,7 @@
             var sharedArr = Array();
             for(var a = 0;a<sharedPaths.length;a++)
             {
-                var temp = sharedPaths[a].split("\\");
+                var temp = sharedPaths[a].split("/");
                 sharedArr[a]=temp[temp.length-1];
             }
             function getChilds()
@@ -83,7 +83,7 @@
                                     }
                                     $(".link2").on("dblclick",function(event){
 
-                                   var p = path.replace(/_/g,'\\')+"\\"+ $(this).find(".card-title").html();
+                                   var p = path.replace(/_/g,'/')+"/"+ $(this).find(".card-title").html();
                                    
                                    var url = 'downloadShared';
                                    var form = $('<form action="' + url + '" method="post">' +
@@ -131,12 +131,12 @@
             }
             function selectAll()
             {
-                var dir = path.replace(/%/g,'\\');
+                var dir = path.replace(/%/g,'/');
                 var files = $(".card").find(".card-title");
                 selectedCount=0;
                 selected={};
                 $.each(files,function(index,value){
-                    var v = dir +"\\"+$(value).html();
+                    var v = dir +"/"+$(value).html();
                     selected[v]=v;
                     selectedCount++;
                 });
@@ -153,7 +153,7 @@
 //                    num--;
                 $(".link2").on("dblclick",function(event){
 
-                   var p = path.replace(/_/g,'\\')+"\\"+ $(this).find(".card-title").html();
+                   var p = path.replace(/_/g,'/')+"/"+ $(this).find(".card-title").html();
 
                    var url = 'downloadShared';
                    var form = $('<form action="' + url + '" method="post">' +
@@ -194,7 +194,7 @@
                         }
                 });
                 $("#dirview").on("change","input",function(event){
-                     var p = path.replace(/_/g,'\\')+"\\"+$(this).parents(".card").find(".card-title").html();
+                     var p = path.replace(/_/g,'/')+"/"+$(this).parents(".card").find(".card-title").html();
                      if($(this).is(':checked'))
                      {      
                          selected[p]=p;
@@ -278,7 +278,7 @@
                     }
                 });
                 $("#filesview").on("change","input",function(event){
-                     var p = path.replace(/_/g,'\\')+"\\"+$(this).parents(".card").find(".card-title").html();
+                     var p = path.replace(/_/g,'/')+"/"+$(this).parents(".card").find(".card-title").html();
                      if($(this).is(':checked'))
                      {      
                          selected[p]=p;
@@ -349,7 +349,7 @@
                     url: 'downloadSharedZippedDir',
                     type: 'POST',
                     dataType: "text",
-                    data: { path: path.replace(/_/g,'\\'), userId: LOGGED_IN_USER,pc_id: PC_ID,sharedLink:link},
+                    data: { path: path.replace(/_/g,'/'), userId: LOGGED_IN_USER,pc_id: PC_ID,sharedLink:link},
                     success: function(data, textStatus, jqXHR)
                     {
                         if(typeof data.error === 'undefined')
@@ -472,7 +472,7 @@
                           },3000);
                       });
                       this.on("sending", function(file, xhr, formData) {
-                        var completePath = path.replace(/%/g,'\\')+"\\"+file.name;
+                        var completePath = path.replace(/%/g,'/')+"/"+file.name;
                         formData.append("filePath",completePath);
                         formData.append("lastModified","0");
                         formData.append("pc_id",PC_ID);
@@ -519,7 +519,7 @@
                 {
                     data.append("file", value);
                 });
-                var completePath = path.replace(/_/g,'\\')+"\\"+$("#uploadField:hidden").val().split("\\").pop();
+                var completePath = path.replace(/_/g,'/')+"/"+$("#uploadField:hidden").val().split("\\").pop();
                 data.append("filePath",completePath);
                 data.append("lastModified","0");
                 data.append("pc_id",PC_ID);

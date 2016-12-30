@@ -285,7 +285,7 @@ public class AndroidController {
 
                         }
                     }
-                    String fpath = path.replace("%", "\\");
+                    String fpath = path.replace("%", File.separator);
                     file.setFilePath(fpath);
                     map.put(fileNum+"", file);
                     fileNum++;
@@ -323,7 +323,7 @@ public class AndroidController {
             }
             else
             {
-                fullPath = LOCATION+"\\"+user.getUname()+"\\"+pc.getPcName()+"\\"+path;
+                fullPath = LOCATION+File.separator+user.getUname()+File.separator+pc.getPcName()+File.separator+path;
             }
             File downloadFile = new File(fullPath);
             sendDownload(downloadFile, fullPath, request, response);
@@ -347,7 +347,7 @@ public class AndroidController {
             {
                 try
                 {
-                    File f = new File(LOCATION+user.getUname()+"\\"+pc.getPcName()+"\\"+path);
+                    File f = new File(LOCATION+user.getUname()+File.separator+pc.getPcName()+File.separator+path);
                     if(f.exists()) {
                         deleteAllFiles(f, pcId);
                         responseJson.accumulate("success", true);
@@ -407,7 +407,7 @@ public class AndroidController {
                     int count=0;
                     int i=0;
                     for(i=0;i<path.length();i++){
-                        if(path.charAt(i)=='\\')
+                        if(path.charAt(i)==File.separatorChar)
                             count++;
                         if(count==4)
                             break;
@@ -429,7 +429,7 @@ public class AndroidController {
         int count=0;
         int i=0;
         for(i=0;i<path.length();i++){
-            if(path.charAt(i)=='\\')
+            if(path.charAt(i)==File.separatorChar)
                 count++;
             if(count==4)
                 break;
@@ -465,17 +465,17 @@ public class AndroidController {
             String uname = user.getUname();
             PushedFileRecord pushedFileRecord = new PushedFileRecord();
             pushedFileRecord.setPcId(pc.getPcId());
-            File file = new File(DataController.LOCATION+uname+"\\"+pc.getPcName());
+            File file = new File(DataController.LOCATION+uname+File.separator+pc.getPcName());
             if(!file.exists())
             {
                 file.mkdirs();
             }
             String path =fileBucket.getFilePath();
             path = decode(path);
-            file = new File(DataController.LOCATION+uname+"\\"+pc.getPcName()+"\\"+path);
+            file = new File(DataController.LOCATION+uname+File.separator+pc.getPcName()+File.separator+path);
             createParentDirs(file.getParentFile().getAbsolutePath());
             // Now do something with file...
-            File toUpload = new File( DataController.LOCATION +uname+"\\"+pc.getPcName()+"\\"+ path);
+            File toUpload = new File( DataController.LOCATION +uname+File.separator+pc.getPcName()+File.separator+ path);
             FileCopyUtils.copy(fileBucket.getFile().getBytes(), toUpload);
             DataController.encrypt(toUpload, userDAO.getUser(pc.getUserId()).getUname(), userDAO.getUser(pc.getUserId()).getPass());
             String fileName = multipartFile.getOriginalFilename();

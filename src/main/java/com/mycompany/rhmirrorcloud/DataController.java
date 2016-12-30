@@ -69,9 +69,9 @@ public class DataController {
         {
             if(link!=null){
                 if(link.getPaths().equalsIgnoreCase("no file"))
-                    response.sendRedirect("/RHMirrorCloud"); // SHow Error No File To Show
+                    response.sendRedirect("/RHMirrorCloud-1.0-SNAPSHOT"); // SHow Error No File To Show
                 if(!link.getSharedTo().equals("All")){
-                    response.sendRedirect("/RHMirrorCloud"); // SHow Error NOT ALLOWED WITHOUT LOGIN
+                    response.sendRedirect("/RHMirrorCloud-1.0-SNAPSHOT"); // SHow Error NOT ALLOWED WITHOUT LOGIN
                 }
             }
             model.addAttribute("uname", "Guest");
@@ -85,7 +85,7 @@ public class DataController {
             User user = (User)session.getAttribute("user");
             if(link!=null){
                 if(link.getPaths().equalsIgnoreCase("no file"))
-                    response.sendRedirect("/RHMirrorCloud"); // SHow Error NOT ALLOWED WITHOUT LOGIN
+                    response.sendRedirect("/RHMirrorCloud-1.0-SNAPSHOT"); // SHow Error NOT ALLOWED WITHOUT LOGIN
                 if(!link.getSharedTo().equals("All")){
                     boolean valid = false;
                     String sharedTo = link.getSharedTo();
@@ -99,7 +99,7 @@ public class DataController {
                             
                     }
                     if(!valid)
-                        response.sendRedirect("/RHMirrorCloud"); // SHow Error Invalid USER
+                        response.sendRedirect("/RHMirrorCloud-1.0-SNAPSHOT"); // SHow Error Invalid USER
                 }
             }
             model.addAttribute("uname", user.getFullName());
@@ -114,6 +114,7 @@ public class DataController {
         }
         else{
             String path = link.getPaths();
+            
             model.addAttribute("pc_id",link.getPcId());
             if(path.equals("full")){
                 List<String> immediateChilds = fileDao.getDrives(link.getPcId());
@@ -128,20 +129,20 @@ public class DataController {
                 List<String> shared = new ArrayList<>();
                 for(int i=0;i<splitted.length;i++)
                 {
-                    String[] temp= splitted[i].replace("\\", "%").split("%");
+                    String[] temp= splitted[i].replace(File.separator, "%").split("%");
                     shared.add(temp[temp.length-1]);
                 }
-                String p = path.split("<")[0].replace("\\", "%");
+                String p = path.split("<")[0].replace(File.separator, "%");
                 System.out.println("Before: p = "+p);
                 int num=0;
                 int lastIndex = p.lastIndexOf("%");
                 p = path.substring(0, lastIndex);
-                p = p.replace("\\", "_");
+                p = p.replace(File.separator, "_");
                 if(p.contains("%"))
                 {    
                     num = p.split("%").length;
                     p = p.replace("%", "_");    
-                    p = p.replace("\\", "_");
+                    p = p.replace(File.separator, "_");
                 }
                 else{
                     num = 2;
@@ -159,16 +160,16 @@ public class DataController {
             }
             else {
                 List<String> shared = new ArrayList<>();
-                String[] temp= path.replace("\\", "%").split("%");
+                String[] temp= path.replace(File.separator, "%").split("%");
                 shared.add(temp[temp.length-1]);
-                String p = path.replace("\\", "%");
+                String p = path.replace(File.separator, "%");
                 System.out.println("Before: p = "+p);
                 int num=p.split("%").length;
                 if(p.contains("%"))
                 {
                     int lastIndex = p.lastIndexOf("%");
                     p = path.substring(0, lastIndex);
-                    p = p.replace("\\", "_");
+                    p = p.replace(File.separator, "_");
                     
                 }
                 
@@ -210,7 +211,7 @@ public class DataController {
             User user = (User)session.getAttribute("user");
             if(user==null)
             {
-                response.sendRedirect("/RHMirrorCloud");
+                response.sendRedirect("/RHMirrorCloud-1.0-SNAPSHOT");
             }
             else
             {
@@ -405,7 +406,7 @@ public class DataController {
                         
                     }
                 }
-                String fpath = path.replace("%", "\\");
+                String fpath = path.replace("%", "/");
                 file.setFilePath(fpath);
                 map.put(fileNum+"", file);
                 fileNum++;
@@ -499,7 +500,7 @@ public class DataController {
                         
                     }
                 }
-                String fpath = path.replace("%", "\\");
+                String fpath = path.replace("%", "/");
                 file.setFilePath(fpath);
                 map.put(fileNum+"", file);
                 fileNum++;
@@ -543,7 +544,7 @@ public class DataController {
                     String parentPath = file.getParent();
                     String extension = file.getName().substring(file.getName().lastIndexOf("."));
                     String newFileName = newName+extension;
-                    String actualParent = path.substring(0,path.lastIndexOf("\\"));
+                    String actualParent = path.substring(0,path.lastIndexOf(File.separator));
                     if(file.exists()){
                         File newFile = new File(parentPath+File.separator+newFileName);
                         file.renameTo(newFile);
@@ -605,7 +606,7 @@ public class DataController {
                     int count=0;
                     int i=0;
                     for(i=0;i<path.length();i++){
-                        if(path.charAt(i)=='\\')
+                        if(path.charAt(i)==File.separatorChar)
                             count++;
                         if(count==4)
                             break;
@@ -627,7 +628,7 @@ public class DataController {
         int count=0;
         int i=0;
         for(i=0;i<path.length();i++){
-            if(path.charAt(i)=='\\')
+            if(path.charAt(i)==File.separatorChar)
                 count++;
             if(count==4)
                 break;
@@ -662,7 +663,7 @@ public class DataController {
                     int count=0;
                     int i=0;
                     for(i=0;i<path.length();i++){
-                        if(path.charAt(i)=='\\')
+                        if(path.charAt(i)==File.separatorChar)
                             count++;
                         if(count==4)
                             break;
@@ -684,7 +685,7 @@ public class DataController {
         int count=0;
         int i=0;
         for(i=0;i<path.length();i++){
-            if(path.charAt(i)=='\\')
+            if(path.charAt(i)==File.separatorChar)
                 count++;
             if(count==4)
                 break;
@@ -864,6 +865,7 @@ public class DataController {
     @RequestMapping(value = "/downloadShared",method = RequestMethod.POST)
     public void doDownloadShared(@RequestParam("sharedLink") String link,@RequestParam("path") String path,@RequestParam("pc_id") int pcId,HttpSession session,HttpServletResponse response,HttpServletRequest request) throws IOException, Exception{
         path = decode(path);
+//        path = path.replace("\\", File.separator);
         UserPC pc = pcDao.getPcUsingPcId(pcId);
         int userId = pc.getUserId();
         User owner = userDao.getUser(userId);
@@ -880,8 +882,8 @@ public class DataController {
             fullPath = LOCATION+File.separator+owner.getUname()+File.separator+pc.getPcName()+File.separator+path;
             SharedLink sharedLink = sharedLinkDAO.getLink(link);
             File downloadFile = new File(fullPath);
-            String parentPath = path.substring(0, path.lastIndexOf("\\"));
-            String copyPath = LOCATION+File.separator+owner.getUname()+File.separator+pc.getPcName()+File.separator+parentPath+"\\(MirrorCloud)"+downloadFile.getName();
+            String parentPath = path.substring(0, path.lastIndexOf(File.separator));
+            String copyPath = LOCATION+File.separator+owner.getUname()+File.separator+pc.getPcName()+File.separator+parentPath+File.separator+"(MirrorCloud)"+downloadFile.getName();
             if(sharedLink.getSharedTo().equals("All")){
                 File newFile = new File(copyPath);
                 boolean copied = copyFile(downloadFile, newFile);
@@ -898,7 +900,7 @@ public class DataController {
             else{
                 User user = (User)session.getAttribute("user");
                 if(user==null){
-                    response.sendRedirect("/RHMirrorCloud");
+                    response.sendRedirect("/RHMirrorCloud-1.0-SNAPSHOT");
                 }
                 else{
                     File newFile = new File(copyPath);
@@ -921,10 +923,11 @@ public class DataController {
     public void doDownload(@RequestParam("path") String path,@RequestParam("userId") int userId,@RequestParam("pc_id") int pcId,HttpSession session,HttpServletResponse response,HttpServletRequest request) throws IOException
     {
         path = decode(path);
+//        path = path.replace("\\", File.separator);
         User user = (User)session.getAttribute("user");
         if(user==null)
         {
-            response.sendRedirect("/RHMirrorCloud");
+            response.sendRedirect("/RHMirrorCloud-1.0-SNAPSHOT");
         }
         else
         {
@@ -974,14 +977,14 @@ public class DataController {
             String parentDir = "";
             if(!path.contains(" ## "))
             {
-                parentDir = path.substring(0,path.lastIndexOf("\\"));
+                parentDir = path.substring(0,path.lastIndexOf(File.separator));
             } else {
                 String aFile = path.split(" ## ")[0];
                 System.out.println("First File: "+aFile);
-                parentDir = aFile.substring(0,aFile.lastIndexOf("\\"));
+                parentDir = aFile.substring(0,aFile.lastIndexOf(File.separator));
             }
             UserPC pc = pcDao.getPcUsingPcId(pcId);
-            String SOURCE_FOLDER = LOCATION+owner.getUname()+File.separator+pc.getPcName()+"\\";
+            String SOURCE_FOLDER = LOCATION+owner.getUname()+File.separator+pc.getPcName()+File.separator;
             System.out.println("SOURCE: "+SOURCE_FOLDER);
 //            File file = new File(SOURCE_FOLDER);
             List<String> fileList= new ArrayList<>();
@@ -1040,7 +1043,7 @@ public class DataController {
         User owner = (User)session.getAttribute("user");
         if(owner==null)
         {
-            response.sendRedirect("/RHMirrorCloud");
+            response.sendRedirect("/RHMirrorCloud-1.0-SNAPSHOT");
         }
         else
         {
@@ -1073,7 +1076,7 @@ public class DataController {
         User owner = userDao.getUser(pc.getUserId());
         if(owner==null)
         {
-            response.sendRedirect("/RHMirrorCloud");
+            response.sendRedirect("/RHMirrorCloud-1.0-SNAPSHOT");
         }
         else
         {
@@ -1081,7 +1084,7 @@ public class DataController {
             User user = (User)session.getAttribute("user");
             if(!sharedLink.getSharedTo().equals("All")){
                 if(user==null){
-                    response.sendRedirect("/RHMirrorCloud");//Not LOGGED IN SHOW ERROR
+                    response.sendRedirect("/RHMirrorCloud-1.0-SNAPSHOT");//Not LOGGED IN SHOW ERROR
                 }
                 else {
                     boolean found = false;
@@ -1093,7 +1096,7 @@ public class DataController {
                         }
                     }
                     if(!found){
-                        response.sendRedirect("/RHMirrorCloud");//Invalid USER IN SHOW ERROR
+                        response.sendRedirect("/RHMirrorCloud-1.0-SNAPSHOT");//Invalid USER IN SHOW ERROR
                     }
                 }
             }
@@ -1163,7 +1166,7 @@ public class DataController {
         User user = (User)session.getAttribute("user");
         if(user==null)
         {
-            response.sendRedirect("/RHMirrorCloud");
+            response.sendRedirect("/RHMirrorCloud-1.0-SNAPSHOT");
         }
         else
         {
@@ -1257,7 +1260,7 @@ public class DataController {
        {
           try
           {
-             source = SOURCE_FOLDER.substring(SOURCE_FOLDER.lastIndexOf("\\") + 1, SOURCE_FOLDER.length());
+             source = SOURCE_FOLDER.substring(SOURCE_FOLDER.lastIndexOf(File.separator) + 1, SOURCE_FOLDER.length());
           }
          catch (Exception e)
          {
