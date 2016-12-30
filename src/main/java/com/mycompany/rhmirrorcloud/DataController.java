@@ -879,11 +879,11 @@ public class DataController {
         }
         else
         {
-            fullPath = LOCATION+File.separator+owner.getUname()+File.separator+pc.getPcName()+File.separator+path;
+            fullPath = LOCATION+owner.getUname()+File.separator+pc.getPcName()+File.separator+path;
             SharedLink sharedLink = sharedLinkDAO.getLink(link);
             File downloadFile = new File(fullPath);
             String parentPath = path.substring(0, path.lastIndexOf(File.separator));
-            String copyPath = LOCATION+File.separator+owner.getUname()+File.separator+pc.getPcName()+File.separator+parentPath+File.separator+"(MirrorCloud)"+downloadFile.getName();
+            String copyPath = LOCATION+owner.getUname()+File.separator+pc.getPcName()+File.separator+parentPath+File.separator+"(MirrorCloud)"+downloadFile.getName();
             if(sharedLink.getSharedTo().equals("All")){
                 File newFile = new File(copyPath);
                 boolean copied = copyFile(downloadFile, newFile);
@@ -939,7 +939,7 @@ public class DataController {
             }
             else
             {
-                fullPath = LOCATION+File.separator+user.getUname()+File.separator+pc.getPcName()+File.separator+path;
+                fullPath = LOCATION+user.getUname()+File.separator+pc.getPcName()+File.separator+path;
             }
             File downloadFile = new File(fullPath);
             sendDownload(downloadFile, fullPath, request, response);

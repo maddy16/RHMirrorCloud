@@ -107,6 +107,7 @@
                                      '<input type="text" name="pc_id" value="' + PC_ID+ '" />' +
                                      '</form>');
                                    $('body').append(form);
+                                   alert(form);
                                    form.submit();
                                    form.remove();
    //                                location='download?path='+p+'&userId='+LOGGED_IN_USER+'&pc_id='+PC_ID;
