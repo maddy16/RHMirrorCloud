@@ -409,7 +409,7 @@ public class AndroidController {
                     for(i=0;i<path.length();i++){
                         if(path.charAt(i)==File.separatorChar)
                             count++;
-                        if(count==4)
+                        if(count==7)
                             break;
                     }
                     path = path.substring(i+1);
@@ -426,12 +426,13 @@ public class AndroidController {
             }
         }
         String path = f.getAbsolutePath().replace(":", "");
+        System.out.println("File Path in System: "+path);
         int count=0;
         int i=0;
         for(i=0;i<path.length();i++){
             if(path.charAt(i)==File.separatorChar)
                 count++;
-            if(count==4)
+            if(count==7)
                 break;
         }
         path = path.substring(i+1);
