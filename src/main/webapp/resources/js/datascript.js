@@ -97,6 +97,9 @@
                         
                          ]
                 });
+                $(".link2").on("click",function(event){
+                    event.preventDefault();
+                });
                                $(".link2").on("dblclick",function(event){
                                    var p = path.replace(/_/g,'/')+"/"+ $(this).find(".card-title").html();
                                    
@@ -107,7 +110,6 @@
                                      '<input type="text" name="pc_id" value="' + PC_ID+ '" />' +
                                      '</form>');
                                    $('body').append(form);
-                                   alert(form);
                                    form.submit();
                                    form.remove();
    //                                location='download?path='+p+'&userId='+LOGGED_IN_USER+'&pc_id='+PC_ID;
@@ -185,6 +187,9 @@
                 },5000);
             }
             $(document).ready(function() {
+                $(".link").on("click",function(event){
+                    event.preventDefault();
+                });
                 $(".link").contextPopup({
                     items: [
                         {label:'Open',     action:function(abc) { $(abc.currentTarget).trigger("dblclick"); } },
@@ -203,6 +208,53 @@
                     var fpath = Object.keys(selected)[0];
                     
                     $("#fileToRename").html(fpath);
+                });
+                $("#newDirBtn").click(function(){
+                    
+                    var dirName = $("#dirNameTxt").val();
+                    $('.link').each(function(i, obj) {
+                       var txt = $(this).find(".card-title").html();
+                        if(txt!==undefined)
+                            if($.trim(txt)==$.trim(dirName)){
+                                
+                                $("#dirNameErr").html("Directory already exists");
+                                $("#dirNameErr").removeClass("invisible");
+                                return;
+                            }
+                    });
+                    $("#dirNameErr").addClass("invisible");
+                    var p = path.replace(/_/g,'/')+"/"+$.trim(dirName);
+                    $.ajax({
+                        url: "createNewDir",
+                        method: "POST",
+                        data:{path:p,userId:LOGGED_IN_USER,pc_id:PC_ID},
+                        success:function(data){
+                            data = $.parseJSON(data);
+                            if(data.success){
+                                Materialize.toast("Directory Created.",4000);
+                                $("#dirNameTxt").val("");
+                                $("#newDirModal").closeModal();
+                                $("#refreshLink").trigger("click");
+                            } else{
+                                if(!data.loggedIn)
+                                    Materialize.toast("Please Login to Continue",4000);
+                                else if(!data.pcFound)
+                                    Materialize.toast("Invalid PC",4000);
+                                else
+                                    Materialize.toast(data.errorMsg,4000);
+                                $("#dirNameTxt").val("");
+                                $("#newDirModal").closeModal();
+                            }
+                            deselectAll();
+                        },
+                        failure: function(data){
+                            Materialize.toast("File Cannot be renamed",4000);
+                            $("#dirNameTxt").val("");
+                            $("#newDirModal").closeModal();
+                            deselectAll();
+                        }
+                        
+                    });
                 });
                 $("#renameFileBtn").click(function(){
                     var fPath = $("#fileToRename").html();
@@ -260,7 +312,7 @@
                             $("#navPaths").children().last().removeClass("active");
                             $("#navPaths").append("<a href=\"#\" class=\"breadcrumb active\" data-num=\""+num+"\" data-path=\""+path+"\">"+ $(this).find(".card-title").html()+"</a>");
                             $("#downloadDirLink").show();    
-                            $("#uploadLink").show();    
+                            $("#newLink").removeClass("invisible");    
                         }
                         
                  });
@@ -291,7 +343,8 @@
                          $("#selectedCount").html(selectedCount);
                          $("#selectedStatus").fadeIn(1000);
                          $("#deleteLink").fadeIn(1000);
-                         $("#uploadLink").fadeOut(1000);
+                         $("#newLink").fadeOut(1000);
+                         $("#newLink").addClass("invisible");
                          $("#downloadSelectedLink").fadeIn(1000);
                          $(".card-action").hide();
                      }
@@ -309,7 +362,7 @@
                             $("#selectedStatus").fadeOut(1000);
                             $("#downloadSelectedLink").fadeOut(1000);
                             $("#deleteLink").fadeOut(1000);
-                            $("#uploadLink").fadeIn(1000);
+                            $("#newLink").removeClass("invisible");
                             $(".checks").fadeOut(100);
                             $(this).parents(".card").find("label").fadeIn(100);
                             $(".card-action").fadeIn(1000);
@@ -518,7 +571,7 @@
                                num=1;
                                getChilds();
                                $("#downloadDirLink").hide();
-                               $("#uploadLink").hide();
+                               $("#newLink").addClass("invisible");
                            }
                            $("#navPaths").children().last().remove();
                            $("#navPaths").children().last().addClass("active");

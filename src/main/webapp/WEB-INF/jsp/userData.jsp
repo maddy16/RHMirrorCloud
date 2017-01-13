@@ -178,12 +178,6 @@
                     <ul class="hide-on-small-and-down" >
                         <li><a href="#"  id="backLink" class="white-text "><span style="font-size: inherit;" class="tiny material-icons">skip_previous</span>Back </a></li>
                         <li><a href="#"  id="refreshLink" class="white-text "><span style="font-size: inherit;" class="tiny material-icons">replay</span>Refresh </a></li>
-                        <li><a href="" class="white-text invisible">New <span style="font-size: inherit;" class="material-icons">input</span></a></li>
-                        <li><a href="#" class=" white-text invisible" id="uploadLink">Upload <span style="font-size: inherit;" class="material-icons">import_export</span></a>
-                            <form action="#" enctype="multipart/form-data" name="uploadForm" id="uploadForm">
-                                <input type="file" id="uploadField" style="display:none;" name="file"/>
-                            </form>
-                        </li>
                         <li><a id="shareLink" href="#sharingToModal" class="modal-trigger white-text ">Share<span style="font-size: inherit;" class="material-icons">swap_horiz</span></a></li>
                         <!--<li><a href="#"  class="dropdown-button white-text " data-beloworigin="true" data-constrainwidth="false" data-activates="shareDropdown" >Share <span style="font-size: inherit;" class="material-icons">swap_horiz</span></a></li>-->
                         <li><a href="#" id="downloadSelectedLink" class=" white-text invisible">Download <span style="font-size: inherit;" class="material-icons">loop</span></a></li>
@@ -192,13 +186,22 @@
                         <li><a href="" class=" white-text invisible">Copy to <span style="font-size: inherit;" class="material-icons">call_merge</span></a></li>
                         <li><a id="deleteLink" href="#confirmDeleteModal" class="modal-trigger white-text invisible">Delete <span style="font-size: inherit;" class="material-icons">delete</span></a></li>
                         <li><a id="renameLink" href="#renameModal" class="modal-trigger white-text left invisible">Rename <span style="font-size: inherit;" class="material-icons">description</span></a></li>
+                        <li><a href="#" id="newLink" style="width:153px;" class="dropdown-button white-text invisible" data-activates="newDropdown" >New <span style="font-size: inherit;" class="material-icons">import_export</span></a></li>
                     </ul>
                     <ul class="right hide-on-small-and-down">
                         <li><a href="#" id="selectedStatus" class="dropdown-button white-text invisible" data-activates="dropdown1" ><span style="font-size: inherit;" class="material-icons">done</span> <span id="selectedCount"></span> Item/s Selected</a></li>
                         <li><a href="#" id="moreOptions" class="dropdown-button white-text invisible" data-activates="dropdown2" ><span style="font-size: 20px; padding-top:5px; padding-left:50px;padding-right:50px;" class="material-icons">settings</span> <span id="selectedCount"></span>  </a></li>
                         <li><a href="" class=" white-text invisible">Remove from my Drive<span style="font-size: inherit;" class="material-icons">delete</span></a></li>
                     </ul>
-                    
+                    <ul id="newDropdown" class="dropdown-content dropdown-menu sub-menu blue">
+                        <li><a href="#" class=" white-text invisible" id="uploadLink">File Upload <span style="font-size: inherit;" class="material-icons">import_export</span></a>
+                            <form action="#" enctype="multipart/form-data" name="uploadForm" id="uploadForm">
+                                <input type="file" id="uploadField" style="display:none;" name="file"/>
+                            </form>
+                        </li>
+                        <li class="divider white-text"></li>
+                        <li><a href="#newDirModal" id="newDirLink" class="modal-trigger white-text">New Directory <span style="font-size: inherit;" class="material-icons">import_export</span></a></li>
+                    </ul>
                     <ul id="dropdown1" class="dropdown-content dropdown-menu sub-menu blue">
                         <li><a href="#" id="selectAllLink" class="white-text"><span style="font-size: inherit;" class="material-icons">done_all</span> Select All</a></li>
                         <li class="divider white-text"></li>
@@ -389,6 +392,22 @@
                 </div>
                 
             </div>
+        </div>
+    </div> 
+    <div id="newDirModal" class="modal blue" >
+        <h5 class="center modal-header white-text">Create New Directory</h5>
+        <div class="modal-content white">
+            <div class='row'>
+                <div class='input-field col s12 offset-m4 m4'>
+                    <input class='validate' type="text" id="dirNameTxt"/>
+                    <label for="newName">Please Enter Directory Name</label>
+                </div>
+                <p class="red-text col offset-m4 m4 s12 invisible" id="dirNameErr">Directory Already Exists</p>
+            </div>
+        </div>
+        <div class="modal-footer blue-grey lighten-5">
+            <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat ">Cancel</a>
+            <a href="#" id="newDirBtn" class="waves-effect waves-light btn cyan">Create Directory</a>
         </div>
     </div> 
     <div id="renameModal" class="modal blue" >

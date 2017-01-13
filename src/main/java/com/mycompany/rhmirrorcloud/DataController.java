@@ -461,6 +461,8 @@ public class DataController {
             int fileNum =1;
             for(String child : immediateChilds)
             {
+                if(child.equals("MirrorCloudTemp"))
+                    continue;
                 PushedFileRecord file = new PushedFileRecord();
                 file.setFileName(child);
                 String nextPath = path+"_"+child;
@@ -514,6 +516,44 @@ public class DataController {
             }
         return json.toString();
 //        List<String> immediateChilds = fileDao.getImmediateChilds(path+"%",num,((User)session.getAttribute("user")).getId());
+    }
+    @RequestMapping(value = "/createNewDir",method = RequestMethod.POST)
+    public @ResponseBody String createNewDir(@RequestParam("path") String path,@RequestParam("userId") int userId,@RequestParam("pc_id") int pcId,HttpSession session,HttpServletResponse response,HttpServletRequest request) throws IOException
+    {    
+        path = decode(path);
+        System.out.println("new Dir Requested: "+path);
+        User user = (User)session.getAttribute("user");
+        UserPC pc = pcDao.getPcUsingPcId(pcId);
+        JSONObject responseJson = new JSONObject();
+        if(user!=null)
+        {
+            responseJson.accumulate("loggedIn", true);
+            if(pc!=null)
+            {
+                responseJson.accumulate("pcFound", true);
+                File file = new File(LOCATION+user.getUname()+File.separator+pc.getPcName()+File.separator+path);
+                file.mkdirs();
+                PushedFileRecord pushedFileRecord = new PushedFileRecord();
+                pushedFileRecord.setPcId(pc.getPcId());
+                pushedFileRecord.setFileName("MirrorCloudTemp");
+                pushedFileRecord.setFilePath(path+"/"+"MirrorCloudTemp");
+                pushedFileRecord.setDateModified(new Long(0));
+                pushedFileRecord.setIsDirty(false);
+                fileDao.create(pushedFileRecord,DirtyReason.NULL);
+                responseJson.accumulate("success", true);
+            }
+            else
+            {
+                responseJson.accumulate("pcFound", false);
+                responseJson.accumulate("success", false);
+            }
+        }
+        else
+        {
+            responseJson.accumulate("loggedIn", false);
+            responseJson.accumulate("success", false);
+        }
+        return responseJson.toString();
     }
     @RequestMapping(value = "/renameData",method = RequestMethod.POST)
     public @ResponseBody String renameData(@RequestParam("newName") String newName,@RequestParam("path") String path,@RequestParam("userId") int userId,@RequestParam("pc_id") int pcId,HttpSession session,HttpServletResponse response,HttpServletRequest request) throws IOException
