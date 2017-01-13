@@ -86,7 +86,11 @@ public class PcDAOImpl implements PcDAO{
         SQL = "delete from `user_pcs` where `pc_id` = ?";
         jdbcTemplate.update(SQL, pcId);
     }
-
+    @Override 
+    public void deleteSystemDetails(int pcId){
+        String SQL = "delete from `systems` where `pc_id` = ?";
+        jdbcTemplate.update(SQL, pcId);
+    }
     @Override
     public void updateName(int pcId, String name) {
         String SQL = "update `user_pcs` set `pc_name` = ? where `pc_id` = ?";

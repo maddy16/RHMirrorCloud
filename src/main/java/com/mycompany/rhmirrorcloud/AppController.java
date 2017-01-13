@@ -380,8 +380,6 @@ public class AppController {
         if(user!=null)
         {
             responseJson.accumulate("correct", true);
-            
-            UserPC byMac = pcDAO.getPcUsingMac(pc.getUserId(), pc.getDetail().getMacAddress());
             UserPC byName = pcDAO.getPc(pc.getUserId(), pc.getPcName());
             if(byName==null)
             {
@@ -391,18 +389,10 @@ public class AppController {
             }
             else
             {
-                if(byMac==null)
-                {
-                    System.out.println("No PC By MAC: "+pc.getDetail().getMacAddress());
-                    pcDAO.registerAnotherMac(byName.getPcId(), pc.getDetail());
-                    pcDAO.updateAddress(byName.getPcId(), pc.getAddress());
-                    responseJson.accumulate("status", "PC registered");
-                }
-                else if(byName.getPcId() == byMac.getPcId())
-                {
-                    pcDAO.updateAddress(byName.getPcId(), pc.getAddress());
-                    responseJson.accumulate("status", "MAC confirmed");
-                }
+                pcDAO.deleteSystemDetails(byName.getPcId());
+                pcDAO.registerAnotherMac(byName.getPcId(), pc.getDetail());
+                pcDAO.updateAddress(byName.getPcId(), pc.getAddress());
+                responseJson.accumulate("status", "PC registered");
             }
         }
         else

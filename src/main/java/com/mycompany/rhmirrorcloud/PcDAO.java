@@ -22,6 +22,7 @@ public interface PcDAO {
     public List<UserPC> getAllPcs(int userId);
     public void registerAnotherMac(int pcId,SystemDetail detail);
     public void delete(int pcId);
+    public void deleteSystemDetails(int pcId);
     public void updateName(int pcId,String name);
     public void updateAddress(int pcId,String address);
 }
