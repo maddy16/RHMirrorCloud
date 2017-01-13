@@ -246,6 +246,8 @@ public class AndroidController {
                 int fileNum =1;
                 for(String child : immediateChilds)
                 {
+                    if(child.equals("MirrorCloudTemp"))
+                        continue;
                     PushedFileRecord file = new PushedFileRecord();
                     file.setFileName(child);
                     String nextPath = path+"_"+child;
