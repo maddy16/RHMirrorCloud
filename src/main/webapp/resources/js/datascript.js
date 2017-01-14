@@ -98,7 +98,16 @@
                          ]
                 });
                 $(".link2").on("click",function(event){
-                    event.preventDefault();
+                   var a = event.target.className;
+                   if(a=="white-text checks" || a=="filled-in"){}
+                   else
+                       event.preventDefault();
+                });
+                $(".link").on("click",function(event){
+                    var a = event.target.className;
+                   if(a=="white-text checks" || a=="filled-in"){}
+                   else
+                       event.preventDefault();
                 });
                                $(".link2").on("dblclick",function(event){
                                    var p = path.replace(/_/g,'/')+"/"+ $(this).find(".card-title").html();
@@ -187,9 +196,7 @@
                 },5000);
             }
             $(document).ready(function() {
-                $(".link").on("click",function(event){
-                    event.preventDefault();
-                });
+                
                 $(".link").contextPopup({
                     items: [
                         {label:'Open',     action:function(abc) { $(abc.currentTarget).trigger("dblclick"); } },
@@ -313,6 +320,7 @@
                             $("#navPaths").append("<a href=\"#\" class=\"breadcrumb active\" data-num=\""+num+"\" data-path=\""+path+"\">"+ $(this).find(".card-title").html()+"</a>");
                             $("#downloadDirLink").show();    
                             $("#newLink").removeClass("invisible");    
+                            $("#newLink").fadeIn(1000);
                         }
                         
                  });
@@ -362,7 +370,9 @@
                             $("#selectedStatus").fadeOut(1000);
                             $("#downloadSelectedLink").fadeOut(1000);
                             $("#deleteLink").fadeOut(1000);
+                            
                             $("#newLink").removeClass("invisible");
+                            $("#newLink").fadeIn(1000);
                             $(".checks").fadeOut(100);
                             $(this).parents(".card").find("label").fadeIn(100);
                             $(".card-action").fadeIn(1000);
@@ -442,6 +452,9 @@
                          $("#selectedCount").html(selectedCount);
                          $("#selectedStatus").fadeIn(1000);
                          $("#deleteLink").fadeIn(1000);
+                         $("#newLink").fadeOut(1000);
+                         $("#newLink").addClass("invisible");    
+                            
                          $("#downloadSelectedLink").fadeIn(1000);
                          $(".card-action").hide();
                      }
@@ -460,6 +473,8 @@
                             $("#downloadSelectedLink").fadeOut(1000);
                             $(".checks").fadeOut(100);
                             $("#deleteLink").fadeOut(1000);
+                            $("#newLink").removeClass("invisible");    
+                            $("#newLink").fadeIn(1000);
                             $(this).parents(".card").find("label").fadeIn(100);
                             $(".card-action").fadeIn(1000);
                         }

@@ -311,50 +311,7 @@
         </div>
     </div>
                 
-<footer class="page-footer teal" style="margin-top:400px;">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Mirror Cloud</h5>
-          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
 
-
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Help and Support</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Help Center</a></li>
-            <li><a class="white-text" href="#!">Terms of Use</a></li>
-            <li><a class="white-text" href="#!">Forums</a></li>
-            <li><a class="white-text" href="#!">Explore our system</a></li>
-          </ul>
-        </div>
-		  <div class="col l3 s12">
-          <h5 class="white-text">NewsLetters</h5>
-          <ul>
-            <li class="white-text">Get Envato Tuts+ updates, news, surveys & offers<li>
-           <div class="row">
-		<form class="col s12">
-		  <div class="row">
-			<div class="input-field col s12">
-			  <input id="email" type="email" class="validate" placeholder="Enter Email">
-			  <a class="white-text btn col s12 cyan" href="#!">Subscribe</a>
-			</div>
-		  </div>
-		 </form>
-		 </div>
-				
-          </ul>
-        </div>
-       
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container center">
-       <a class="brown-text text-lighten-3" href="">Trademarks and brands are the property of their respective owners.</a>
-      </div>
-    </div>
-  </footer>
 
     
     <div id="zipWaitModal" class="modal" style="background-color:rgb(25,145,236);">
