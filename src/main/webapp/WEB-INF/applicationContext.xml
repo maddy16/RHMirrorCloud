@@ -38,9 +38,9 @@
     <bean  id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
     <bean name="dataSource" id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://192.232.218.126:3306/websol_mirrorweb"/>
-        <property name="username" value="websol_maddy"/>
-        <property name="password" value="maddy123"/>
+        <property name="url" value="jdbc:mysql://127.2.142.2:3306/mirror"/>
+        <property name="username" value="adminXMZQHZL"/>
+        <property name="password" value="CcyGJI-VN1SD"/>
     </bean>
     <bean id="userDAOImpl" class="com.mycompany.rhmirrorcloud.UserDAOImpl">
         <property name="dataSource" ref="dataSource"/>
